@@ -1,9 +1,11 @@
 version: '3.3'
 services:
-  node:
+  formacaonode:
+    container_name: formacaonode
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - '9001:3000'
     volumes:
     - ./app:/usr/src/app
-    entrypoint: ['node']
