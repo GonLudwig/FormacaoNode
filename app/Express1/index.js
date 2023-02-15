@@ -21,6 +21,17 @@ app.get("/ola/:nome", (req, res) => {
     res.send("<h1>"+ nome + "</h1>")
 })
 
+
+app.get("/canal/youtube", (req, res) => {
+    let canal = req.query["canal"]
+
+    if (canal) {
+        res.send(canal)
+    } else {
+        res.send("Nenhum canal enviado!")
+    }
+})
+
 app.listen(4000, (error) => {
     if (error) {
         console.log("Ocorreu um erro!")
