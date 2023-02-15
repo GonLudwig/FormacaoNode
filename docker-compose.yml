@@ -4,6 +4,10 @@ services:
     container_name: formacaonode
     image: node:lts-alpine3.16
     working_dir: /usr/src/app/guiaperguntas
+    environment:
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
     ports:
       - '9001:3000'
     volumes:
@@ -16,7 +20,7 @@ services:
       MYSQL_USER: '${MYSQL_USER}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
     ports:
-      - '3306:3306'
+      - '${MYSQL_PORT}:3306'
     volumes:
       - dbvolume:/var/lib/mysql
 volumes:
