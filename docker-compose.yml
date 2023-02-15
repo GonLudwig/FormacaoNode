@@ -3,8 +3,22 @@ services:
   formacaonode:
     container_name: formacaonode
     image: node:lts-alpine3.16
-    working_dir: /usr/src/app/Express1
+    working_dir: /usr/src/app/guiaperguntas
     ports:
       - '9001:3000'
     volumes:
     - ./app:/usr/src/app
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+    ports:
+      - '3306:3306'
+    volumes:
+      - dbvolume:/var/lib/mysql
+volumes:
+  dbvolume:
+    driver: local
