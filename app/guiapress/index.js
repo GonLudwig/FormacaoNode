@@ -4,6 +4,8 @@ const bodyParser = require("body-parser")
 const connection = require("./database/database")
 const articlesController = require("./articles/ArticlesController")
 const categoriesController = require("./categories/CategoriesController")
+const Category = require("./categories/Category")
+const Article = require("./articles/Article")
 
 connection
     .authenticate()
