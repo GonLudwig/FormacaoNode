@@ -3,8 +3,8 @@
 
 <div class="container">
     <hr>
-    <h2>Categorias</h2>
-    <a class="btn btn-success" href="/admin/categories/new">Criar Categoria</a>
+    <h2>Artigos</h2>
+    <a class="btn btn-success" href="/admin/articles/new">Criar Artigo</a>
     <hr>
     <table class="table table-bordered">
         <thead>
@@ -12,19 +12,21 @@
                 <th>ID</th>
                 <th>Título</th>
                 <th>Slug</th>
+                <th>Categoria</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            <% categories.forEach(category => { %>
+            <% articles.forEach(article => { %>
                 <tr>
-                    <td><%= category.id %></td>
-                    <td><%= category.title %></td>
-                    <td><%= category.slug %></td>
+                    <td><%= article.id %></td>
+                    <td><%= article.title %></td>
+                    <td><%= article.slug %></td>
+                    <td><%= article.category.title %></td>
                     <td>
-                        <a class="btn btn-warning" href="/admin/categories/edit/<%= category.id %>">Editar</a>
-                        <form action="/categories/delete" method="post" style="display: inline;" onsubmit="confirmaDelete(event, this)">
-                            <input type="hidden" name="id" value="<%= category.id %>">
+                        <!-- <a class="btn btn-warning" href="/admin/articles/edit/">Editar</a> -->
+                        <form action="/articles/delete" method="post" style="display: inline;" onsubmit="confirmaDelete(event, this)">
+                            <input type="hidden" name="id" value="<%= article.id %>">
                             <button class="btn btn-danger">Excluir</button>
                         </form>
                     </td>
