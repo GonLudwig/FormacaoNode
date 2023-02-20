@@ -6,7 +6,8 @@ const connection = new Sequelize(
     process.env.MYSQL_PASSWORD, 
     {
         host: 'mysql',
-        dialect: 'mysql'
+        dialect: 'mysql',
+        timezone: "-03:00"
     }
 )
 
