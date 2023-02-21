@@ -40,6 +40,24 @@ app.get("/", (req, res) => {
     })
 })
 
+app.get("/:slug", (req, res) => {
+    let slug = req.params.slug
+
+    Article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then(article => {
+        if (article != undefined) {
+            Category.findAll().then( categories => {
+                res.render("article", {article: article, categories: categories})
+            })
+        } else{
+            res.redirect("/")
+        }
+    })
+})
+
 app.get("/category/:slug", (req, res) => {
     let slug = req.params.slug
 
@@ -56,24 +74,6 @@ app.get("/category/:slug", (req, res) => {
         }else{
             res.redirect("/")
         }
-    })
-})
-
-app.get("/:slug", (req, res) => {
-    let slug = req.params.slug
-
-    Article.findOne({
-        where: {
-            slug: slug
-        }
-    }).then(article => {
-        if (article != undefined) {
-            Category.findAll().then( categories => {
-                return res.render("article", {article: article, categories: categories})
-            })
-        }
-
-        res.redirect("/")
     })
 })
 
