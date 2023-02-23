@@ -13,17 +13,25 @@ router.get("/admin/users/create", (req, res) => {
 
 router.post("/users/create", (req, res) => {
     let email = req.body.email
-    let salt = bcrypt.genSaltSync(10)
-    let password = bcrypt.hashSync(req.body.password, salt)
-
-    User.create({
-        email: email,
-        password: password
-    }).then(() => {
-        res.redirect("/")
-    }).catch(error => {
-        res.json(error)
+    
+    User.findOne({where: {email: email}}).then( user => {
+        if (user == undefined) {
+            let salt = bcrypt.genSaltSync(10)
+            let password = bcrypt.hashSync(req.body.password, salt)
+            
+            User.create({
+                email: email,
+                password: password
+            }).then(() => {
+                res.redirect("/")
+            }).catch(error => {
+                res.json(error)
+            })
+        } else {
+            res.redirect("/admin/users/create")
+        }
     })
+
 })
 
 module.exports = router
