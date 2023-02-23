@@ -8,6 +8,7 @@ const userController = require("./users/UsersController")
 const Category = require("./categories/Category")
 const Article = require("./articles/Article")
 const User = require("./users/User")
+const session = require("express-session")
 
 connection
     .authenticate()
@@ -19,6 +20,8 @@ connection
     })
 
 app.set("view engine", "ejs")
+
+app.use(session({secret: "asldkjalsdkjasldkasdk", cookie: {maxAge: 30000}}))
 
 app.use(express.static("public"))
 
