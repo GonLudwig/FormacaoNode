@@ -4,8 +4,10 @@ const bodyParser = require("body-parser")
 const connection = require("./database/database")
 const articlesController = require("./articles/ArticlesController")
 const categoriesController = require("./categories/CategoriesController")
+const userController = require("./users/UsersController")
 const Category = require("./categories/Category")
 const Article = require("./articles/Article")
+const User = require("./users/User")
 
 connection
     .authenticate()
@@ -81,5 +83,7 @@ app.get("/category/:slug", (req, res) => {
 app.use("/", articlesController)
 
 app.use("/", categoriesController)
+
+app.use("/", userController)
 
 app.listen(3000, () => {console.log("Aplicação ativa")})
