@@ -93,8 +93,37 @@ router.post("/articles/update", (req, res) => {
     })
 })
 
-// router.get("/articles/page/:num", (req, res) => {
+router.get("/articles/page/:num", (req, res) => {
+    let page = parseInt(req.params.num)
+    if (isNaN(page)) {
+        page = 0
+    }
+    
+    let limit = 5
+    let offset = page * limit
 
-// })
+    Article.findAndCountAll({
+        offset: offset,
+        limit: limit,
+        orderBy: [
+            ['id', 'DESC']
+        ]
+    }).then(articles => {
+        articles.next = false
+        articles.page = page
+
+        if(articles.count > offset + limit){
+            articles.next = true
+        }
+
+        Category.findAll({
+            orderBy: [
+                ['title', 'ASC']
+            ]
+        }).then( categories => {
+            res.render("admin/articles/pagination", {articles: articles, categories: categories})
+        })
+    })
+})
 
 module.exports = router
