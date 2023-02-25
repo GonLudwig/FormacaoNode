@@ -21,13 +21,19 @@ connection
 
 app.set("view engine", "ejs")
 
-app.use(session({secret: "asldkjalsdkjasldkasdk", cookie: {maxAge: 30000}}))
+app.use(session({secret: "asldkjalsdkjasldkasdk", cookie: {maxAge: 30000000}}))
 
 app.use(express.static("public"))
 
 app.use(bodyParser.urlencoded({extented: false}))
 
 app.use(bodyParser.json())
+
+app.use("/", articlesController)
+
+app.use("/", categoriesController)
+
+app.use("/", userController)
 
 app.get("/", (req, res) => {
     Article.findAll({
@@ -82,11 +88,5 @@ app.get("/category/:slug", (req, res) => {
         }
     })
 })
-
-app.use("/", articlesController)
-
-app.use("/", categoriesController)
-
-app.use("/", userController)
 
 app.listen(3000, () => {console.log("Aplicação ativa")})
