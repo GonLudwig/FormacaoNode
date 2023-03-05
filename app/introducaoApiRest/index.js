@@ -2,12 +2,30 @@ const express = require("express")
 const bodyParse = require("body-parser")
 const app = express()
 const DB = require("./database")
+const cors = require("cors")
 
 app.use(bodyParse.urlencoded({extended: false}))
 app.use(bodyParse.json())
+app.use(cors())
 
 app.get("/", (req, res) => {
     res.json("Introdução Api RestFull")
+})
+
+app.post("/auth", (req, res) => {
+    const {email, senha } = req.body
+
+    if (email == undefined) {
+        return res.sendStatus(400)
+    }
+
+    const user = DB.users.find(user => user.email == email)
+
+    if(user != undefined) {
+        return res.json({auth: "asdjkajshdkajsdh"})
+    }
+
+    res.sendStatus(400)
 })
 
 app.get("/games", (req, res) => {
