@@ -120,5 +120,13 @@ module.exports = {
           ano: 2020,
           preco: 249.99,
         },
+    ],
+    users: [
+        {
+          id: 1,
+          nome: "glauco",
+          email: "glaucox.x@gmail.com",
+          senha: "12345"
+        }
     ]
 }
