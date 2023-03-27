@@ -3,6 +3,11 @@ const bodyParse = require("body-parser")
 const app = express()
 const DB = require("./database")
 const cors = require("cors")
+const jwt = require("jsonwebtoken")
+const auth = require("./auth")
+require("dotenv/config")
+
+const jwtSecrete = process.env.jwt_secret
 
 app.use(bodyParse.urlencoded({extended: false}))
 app.use(bodyParse.json())
@@ -19,16 +24,30 @@ app.post("/auth", (req, res) => {
         return res.sendStatus(400)
     }
 
-    const user = DB.users.find(user => user.email == email)
+    const user = DB.users.find(users => users.senha == senha)
 
-    if(user != undefined) {
-        return res.json({auth: "asdjkajshdkajsdh"})
+    if(user.senha == senha) {
+        return jwt.sign(
+            {
+                email: user.email,
+                id: user.id
+            },
+            jwtSecrete,
+            {expiresIn: '24h'},
+            (error, token) => {
+                if (error) {
+                    res.status(400)
+                    return res.json({error: "Falha interna."})
+                }
+                return res.json({token: token})
+            }
+        )
     }
 
-    res.sendStatus(400)
+    return res.sendStatus(400)
 })
 
-app.get("/games", (req, res) => {
+app.get("/games", auth, (req, res) => {
     res.statusCode = 200
     res.json(DB.games)
 })
