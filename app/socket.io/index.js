@@ -4,13 +4,13 @@ const io = require('socket.io')(http)
 
 app.set('view engine', 'ejs')
 
-io.on('connection', (client) => {
-    client.on("disconnect", () =>{
-        console.log('X desconectou: '+ client.id)
+io.on('connection', (socket) => {
+    socket.on('mensagem', (data) => {
+        io.emit('showmensagem', data)
     })
-
-    client.on('palavra', (data) =>{
-        client.emit('resultado', data + ' - socker.io')
+    
+    socket.on("disconnect", () =>{
+        console.log('X desconectou: '+ socket.id)
     })
 })
 

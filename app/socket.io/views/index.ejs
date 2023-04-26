@@ -8,26 +8,46 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="text" id="palavra">
-    <button onclick="enviar(this)">Enviar</button>
-    <hr>
-    <p id="resultado"></p>
+    <h1>Chat do Guia</h1>
+    <div id="chat">
+
+    </div>
+    <br>
+    <input type="text" name="mensagem" id="mensagem"><br>
+    <input type="text" name="username" id="username" placeholder="Seu nome de usuário">
+    <button onclick="enviar()">Enviar</button>
 </body>
-    <script>
-        let socket = io('http://localhost:9001')
+<script>
+    let socket = io('http://localhost:9001')
 
-        client.on("disconnect", () =>{
-            console.log('Desconectou')
-        })
+    socket.on('showmensagem', (data) => {
+        let chat = document.getElementById('chat')
+        let mensagem = document.createElement("p")
+        mensagem.innerHTML = `${data.username}: ${data.mensagem}`
+        chat.append(mensagem)
+    })
 
-        socket.on('resultado', (data) => {
-            let text = document.getElementById('resultado')
-            text.innerHTML = data
-        })
+    socket.on("disconnect", () => {
+        console.log('Desconectou')
+    })
 
-        function enviar(e){
-            let input = document.getElementById('palavra')
-            socket.emit("palavra", input.value)
-        }
-    </script>
+    function enviar()
+    {
+        let mensagem = document.getElementById('mensagem').value
+        let username = document.getElementById('username').value
+
+        socket.emit('mensagem', {mensagem, username})
+    }
+
+</script>
+<style>
+    #chat {
+        min-width: 500px;
+        min-height: 500px;
+        max-width: 500px;
+        max-height: 500px;
+        border: 1px solid;
+        overflow-y: scroll;
+    }
+</style>
 </html>
