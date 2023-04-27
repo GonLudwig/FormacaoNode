@@ -10,6 +10,9 @@ services:
       - '9001:3000'
     volumes:
     - ./app:/usr/src/app
+    depends_on:
+      - mongo
+    entrypoint: npm run dev
   mysql:
     image: mysql:8
     environment:
