@@ -19,6 +19,8 @@
     let calendar = new FullCalendar.Calendar(divCalendar, {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
+        events: 'appointment',
+        timeZone: 'UTC'
     })
 
     calendar.render()
