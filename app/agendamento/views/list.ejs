@@ -1,0 +1,14 @@
+<h1>Lista de Consultas</h1>
+<hr>
+<form action="/search" method="get">
+    <input type="search" name="search" id="search">
+    <button>Pesquisar</button>
+</form>
+<hr>
+<% appointments.forEach(appointment => { %>
+    <h2>Consulta: <%= appointment.description %></h2>
+    <h4>Paciente: <%= appointment.name %></h4>
+    <h4>Email: <%= appointment.email %></h4>
+    <h4>CPF: <%= appointment.cpf %></h4>
+    <hr>
+<% }) %>

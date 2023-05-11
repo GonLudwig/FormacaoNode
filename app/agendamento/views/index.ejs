@@ -20,7 +20,10 @@
         initialView: 'dayGridMonth',
         locale: 'pt-br',
         events: 'appointment',
-        timeZone: 'UTC'
+        timeZone: 'UTC',
+        eventClick: info => {
+            window.location.href = '/appointment/'+info.event.id
+        }
     })
 
     calendar.render()

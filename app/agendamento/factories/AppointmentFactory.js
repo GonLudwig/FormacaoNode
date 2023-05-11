@@ -7,8 +7,10 @@ class AppointmentFactory
             build.push({
                 id: element._id,
                 title: element.name + " - " + element.description,
+                email: element.email,
                 start: element.dateInicio,
-                end: element.dateFim
+                end: element.dateFim,
+                notified: element.notified
             })
         });
 
