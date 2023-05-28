@@ -12,7 +12,11 @@ app.get('/', (req, res) => {
 
 app.post('/user', async (req, res) => {
     let response = await UserRepository.create(req.body)
+
+    if (response.error !== undefined) {
+        return res.status(401).json(response)
+    }
     
-    res.json(response)
+    return res.json(response)
 })
 module.exports = app

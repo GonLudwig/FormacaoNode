@@ -5,10 +5,9 @@ class UserRepository
     async create(dados)
     {
         try {
-            return User.create(dados)
+            return await User.create(dados)
         } catch (error) {
-            console.log(error)
-            return null
+            return {error: error.errors}
         }
     }
 }
