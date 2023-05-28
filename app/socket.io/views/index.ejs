@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chat do Guia</h1>
+    <div id="chat">
+
+    </div>
+    <br>
+    <input type="text" name="mensagem" id="mensagem"><br>
+    <input type="text" name="username" id="username" placeholder="Seu nome de usuário">
+    <button onclick="enviar()">Enviar</button>
+</body>
+<script>
+    let socket = io('http://localhost:9001')
+
+    socket.on('showmensagem', (data) => {
+        let chat = document.getElementById('chat')
+        let mensagem = document.createElement("p")
+        mensagem.innerHTML = `${data.username}: ${data.mensagem}`
+        chat.append(mensagem)
+    })
+
+    socket.on("disconnect", () => {
+        console.log('Desconectou')
+    })
+
+    function enviar()
+    {
+        let mensagem = document.getElementById('mensagem').value
+        let username = document.getElementById('username').value
+
+        socket.emit('mensagem', {mensagem, username})
+    }
+
+</script>
+<style>
+    #chat {
+        min-width: 500px;
+        min-height: 500px;
+        max-width: 500px;
+        max-height: 500px;
+        border: 1px solid;
+        overflow-y: scroll;
+    }
+</style>
+</html>

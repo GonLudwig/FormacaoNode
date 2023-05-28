@@ -48,8 +48,21 @@ app.post("/auth", (req, res) => {
 })
 
 app.get("/games", auth, (req, res) => {
+
+    let hateoas = [
+        {
+            href: "http://localhost:3000/game/0",
+            link: "DELETE",
+            rel: "delete_game"
+        },
+        {
+            href: "http://localhost:3000/game/0",
+            link: "GET",
+            rel: "get_game"
+        }
+    ]
     res.statusCode = 200
-    res.json(DB.games)
+    res.json({games: DB.games, _links: hateoas})
 })
 
 app.get("/games/:id", auth, (req, res) => {
