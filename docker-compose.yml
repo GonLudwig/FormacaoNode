@@ -3,7 +3,7 @@ services:
   formacaonode:
     container_name: formacaonode
     image: node:lts-alpine3.16
-    working_dir: /usr/src/app/shareImagesWithTdd
+    working_dir: /usr/src/app/integracaoMercadoPagoTdd
     env_file:
       - .env
     ports:
