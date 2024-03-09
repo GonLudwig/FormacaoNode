@@ -10,8 +10,8 @@ From the outside, I was actively engaged in hands-on learning, developing a wide
 ## What I Learned
 Through the course, I learned to build diverse projects, including:
 
-- [Project #01] Developing a question and answer platform
-- [Project #02] Creating a blog with Express.js and MySQL
+- [Project #01](https://github.com/GonLudwig/formacaoNodeGestaoUsuarios) Developing a question and answer platform
+- Project #02 Creating a blog with Express.js and MySQL
 
 By completing these projects, I gained the ability to develop any type of web application using Node.js and JavaScript.
 
